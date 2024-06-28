@@ -3,6 +3,7 @@ import RecommondedPeople from "./RecommondedPeople";
 import UserInterestPopup from "./UserIntrestPopup";
 import UserPersonalDetails from "./UserPersonalDetails";
 import { ProfessionalDetails } from "./ProfessionalDetails";
+import EducationalDetails from "./EducationalDetails";
 
 const MainPage = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -24,7 +25,7 @@ const MainPage = () => {
         Continue
       </button>
 
-      {showPopup && <ProfessionalDetails onClose={handleClosePopup} />}
+      {showPopup && <EducationalDetails onClose={handleClosePopup} />}
     </div>
   );
 };
