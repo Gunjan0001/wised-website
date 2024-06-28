@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import StepBar from "./StepBar";
-import CommonBtn from "../common/CommonBtn";
+import PersonaliseCommonBtn from "./PersonaliseCommonBtn";
 
 const UserPersonalDetails = () => {
   const [activeSteps, setActiveSteps] = useState(0);
@@ -14,9 +14,7 @@ const UserPersonalDetails = () => {
   return (
     <div className="max-w-[540px] bg-white shadow rounded-[40px] py-11 px-[22px]">
       <StepBar activeSteps={activeSteps} totalSteps={totalSteps} />
-      <div className="mt-10 flex justify-center">
-        <CommonBtn onClick={handleContinueClick} />
-      </div>
+
       <form action="">
         <div className="flex flex-col gap-1 mt-6">
           <label htmlFor="username">Username*</label>
@@ -49,6 +47,9 @@ const UserPersonalDetails = () => {
               <option value="">Year</option>
             </select>
           </div>
+        </div>
+        <div className="mt-10 flex justify-center">
+          <PersonaliseCommonBtn onClick={handleContinueClick} />
         </div>
       </form>
     </div>

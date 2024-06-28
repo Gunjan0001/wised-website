@@ -2,7 +2,7 @@ import { useState } from "react";
 import { userIntrestData } from "../common/Helper";
 import { SearchIcon } from "../common/Icons";
 import StepBar from "./StepBar";
-import CommonBtn from "../common/CommonBtn";
+import PersonaliseCommonBtn from "./PersonaliseCommonBtn";
 
 export function UserIntrestPopup() {
   const [activeSteps, setActiveSteps] = useState(0);
@@ -44,7 +44,7 @@ export function UserIntrestPopup() {
         })}
       </div>
       <div className="mt-10 flex justify-center">
-        <CommonBtn onClick={handleContinueClick} />
+        <PersonaliseCommonBtn onClick={handleContinueClick} />
       </div>
     </div>
   );
