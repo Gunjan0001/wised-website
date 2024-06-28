@@ -1,3 +1,5 @@
+import logo from "../../assets/images/png/Logo.png"
+
 export const userIntrestData = [
   {
     btn: "Education",
@@ -39,4 +41,56 @@ export const userIntrestData = [
   {
     btn: "Science",
   },
+];
+export const recommondedPeopledata = [
+  {
+   img:logo,
+   name:"Darrell Steward",
+   title:"QA Engineer",
+  },
+  {
+    img:logo,
+    name:"Darrell Steward",
+    title:"QA Engineer",
+   },
+   {
+    img:logo,
+    name:"Darrell Steward",
+    title:"QA Engineer",
+   },
+   {
+    img:logo,
+    name:"Darrell Steward",
+    title:"QA Engineer",
+   },
+   {
+    img:logo,
+    name:"Darrell Steward",
+    title:"QA Engineer",
+   },
+   {
+    img:logo,
+    name:"Darrell Steward",
+    title:"QA Engineer",
+   },
+   {
+    img:logo,
+    name:"Darrell Steward",
+    title:"QA Engineer",
+   },
+   {
+    img:logo,
+    name:"Darrell Steward",
+    title:"QA Engineer",
+   },
+   {
+    img:logo,
+    name:"Darrell Steward",
+    title:"QA Engineer",
+   },
+   {
+    img:logo,
+    name:"Darrell Steward",
+    title:"QA Engineer",
+   },
 ];

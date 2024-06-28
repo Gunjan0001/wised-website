@@ -5,8 +5,8 @@ import { UserIntrestPopup } from "../components/Auth/UserIntrestPopup";
 const Login = () => {
   return (
     <div>
-      <UserPersonalDetails />
-      <UserIntrestPopup />
+      {/* <UserPersonalDetails /> */}
+      {/* <UserIntrestPopup /> */}
     </div>
   );
 };
