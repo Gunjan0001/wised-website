@@ -62,7 +62,7 @@ const UserPersonalDetails = () => {
     value ? "text-black  border-black" : "text-gray";
 
   return (
-    <div className="max-w-[540px] h-[640px] flex flex-col bg-white shadow rounded-[40px] py-11 px-[22px]">
+    <div className="max-w-[540px] h-[640px] flex flex-col bg-white shadow rounded-[40px] py-6 lg:py-11 px-[22px]">
       <StepBar activeSteps={activeSteps} totalSteps={totalSteps} />
 
       <form action="" className="h-full flex flex-col justify-between">
@@ -89,13 +89,13 @@ const UserPersonalDetails = () => {
                 Date
               </label>
               <div
-                className={`flex justify-between border border-gray py-2 px-3 rounded-3xl ${getColorClass(
+                className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
                   formData.day
                 )}`}
               >
                 <select
                   id="day"
-                  className={`font-normal text-base w-full outline-none ${getColorClass(
+                  className={`font-normal text-[13px]  sm:text-base w-full outline-none ${getColorClass(
                     formData.day
                   )}`}
                   value={formData.day}
@@ -118,13 +118,13 @@ const UserPersonalDetails = () => {
                 month
               </label>
               <div
-                className={`flex justify-between border border-gray py-2 px-3 rounded-3xl ${getColorClass(
+                className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
                   formData.month
                 )}`}
               >
                 <select
                   id="month"
-                  className={`font-normal text-base w-full outline-none ${getColorClass(
+                  className={`font-normal text-[13px]  sm:text-base w-full outline-none ${getColorClass(
                     formData.month
                   )}`}
                   value={formData.month}
@@ -147,13 +147,13 @@ const UserPersonalDetails = () => {
                 Year
               </label>
               <div
-                className={`flex justify-between border border-gray py-2 px-3 rounded-3xl ${getColorClass(
+                className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
                   formData.year
                 )}`}
               >
                 <select
                   id="year"
-                  className={`font-normal text-base w-full outline-none ${getColorClass(
+                  className={`font-normal text-[13px] sm:text-base w-full outline-none ${getColorClass(
                     formData.year
                   )}`}
                   value={formData.year}
