@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { userIntrestData } from "../common/Helper";
 import { BackArrowIcon, CrossIcon, SearchIcon } from "../common/Icons";
@@ -15,8 +14,8 @@ const UserInterestPopup = ({ onClose }) => {
     }
   };
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="max-w-[540px] bg-white shadow rounded-[40px] py-11 px-[22px] mx-auto ">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 px-3">
+      <div className="w-full sm:max-w-[540px] bg-white shadow rounded-[40px] py-11 px-[22px] sm:mx-auto">
         <div className="flex justify-between items-center">
           <button>
             <BackArrowIcon />
@@ -28,23 +27,23 @@ const UserInterestPopup = ({ onClose }) => {
         </div>
 
         <StepBar activeSteps={activeSteps} totalSteps={totalSteps} />
-        <div className="mt-5">
+        <div className="mt-5 flex flex-col gap-3 md:gap-5">
           <h1 className="text-center text-base font-medium">
             What interests you ?
           </h1>
 
-          <h2 className="text-center text-base font-medium  text-gray mt-3">
+          <h2 className="text-center text-base font-medium  text-gray">
             Choose 5 or more
           </h2>
 
-          <div className="flex gap-3 justify-center items-center mt-3">
+          <div className="flex gap-3 justify-center items-center">
             <span>
               <SearchIcon />
             </span>
             <p className="text-gray">| Looking for....</p>
           </div>
         </div>
-        <div className="flex flex-wrap justify-center gap-5 mt-3">
+        <div className="flex flex-wrap justify-center gap-3 lg:gap-5 mt-3 h-[270px] overflow-scroll">
           {userIntrestData.map((butns, index) => {
             return (
               <div key={index} className="">
