@@ -43,6 +43,32 @@ export const BackArrowIcon = () => {
     </svg>
   );
 };
+export const SearchIcon = () => {
+  return (
+    <svg
+      width="25"
+      height="25"
+      viewBox="0 0 25 25"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M11.5935 19.6045C15.9222 19.6045 19.4312 16.0955 19.4312 11.7669C19.4312 7.43824 15.9222 3.9292 11.5935 3.9292C7.2649 3.9292 3.75586 7.43824 3.75586 11.7669C3.75586 16.0955 7.2649 19.6045 11.5935 19.6045Z"
+        stroke="#BEC1C3"
+        stroke-width="1.49289"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M17.1353 17.3091L21.67 21.8438"
+        stroke="#BEC1C3"
+        stroke-width="1.49289"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+};
 export const AppleIcon = () => {
   return (
     <svg
