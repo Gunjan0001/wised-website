@@ -1,10 +1,10 @@
 import './App.css';
-import ByStream from './View/ByStream';
+import MainPage from './components/Auth/MainPage';
 
 function App() {
   return (
-    <div className="App">
-     <ByStream />
+    <div className="m-5">
+      <MainPage />
     </div>
   );
 }
