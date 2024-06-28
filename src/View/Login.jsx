@@ -1,10 +1,12 @@
 import React from "react";
-import StepBar from "../components/Auth/StepBar";
+import UserPersonalDetails from "../components/Auth/UserPersonalDetails";
+import { UserIntrestPopup } from "../components/Auth/UserIntrestPopup";
 
 const Login = () => {
   return (
     <div>
-      <StepBar />
+      <UserPersonalDetails />
+      <UserIntrestPopup />
     </div>
   );
 };
