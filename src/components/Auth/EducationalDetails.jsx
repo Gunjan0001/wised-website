@@ -1,15 +1,25 @@
 import React, { useState, useEffect, useRef } from "react";
-import { AddIcon, DeleteIcon, DropDownIcon, EditIcon } from "../common/Icons";
+import {
+  AddIcon,
+  BackArrowIcon,
+  CrossIcon,
+  DeleteIcon,
+  DropDownIcon,
+  EditIcon,
+} from "../common/Icons";
 import PersonaliseCommonBtn from "./PersonaliseCommonBtn";
-const EducationalDetails = () => {
+import StepBar from "./StepBar";
+const EducationalDetails = ({ onClose }) => {
   const [industryTerm, setIndustryTerm] = useState("");
   const [companyTerm, setCompanyTerm] = useState("");
   const [workingHereTerm, setWorkingHereTerm] = useState("");
   const [designationTerm, setDesignationTerm] = useState("");
   const [locationTerm, setLocationTerm] = useState("");
+  const [years, setYears] = useState("");
   const [activeDropdown, setActiveDropdown] = useState("");
   const [addDetails, setAddDetails] = useState([]);
   const [activeSteps, setActiveSteps] = useState(0);
+
   const [formData, setFormData] = useState({
     month: "",
     year: "",
@@ -85,6 +95,21 @@ const EducationalDetails = () => {
   return (
     <>
       <div className="w-full sm:w-[540px] bg-white shadow rounded-[40px] py-6 xl:py-11 px-5 md:px-10 mx-auto ">
+        <div className="flex justify-between items-center">
+          <button>
+            <BackArrowIcon />
+          </button>
+          <h2 className="font-semibold text-base text-black">Personalise</h2>
+          <button onClick={onClose}>
+            <CrossIcon />
+          </button>
+        </div>
+        <StepBar
+          className="mt-6"
+          activeSteps={activeSteps}
+          totalSteps={totalSteps}
+        />
+
         <form ref={formRef} onSubmit={handleSubmit}>
           <div className="flex flex-col items-end mt-6">
             <span>
@@ -141,7 +166,7 @@ const EducationalDetails = () => {
           {/* Industry Input */}
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="industry">
-              Industry*
+              School / University details*
             </label>{" "}
             <br />
             <div className="relative w-full  pt-1.5 py-[7px] px-[27px] border overflow-hidden border-[#BEC1C3] rounded-[100px]">
@@ -184,11 +209,10 @@ const EducationalDetails = () => {
               </div>
             )}
           </div>
-
           {/* Company Name Input */}
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="company">
-              Company name*
+              Institute name
             </label>{" "}
             <br />
             <div className="relative w-full  py-[7px] px-[27px] pt-1.5 border overflow-hidden border-[#BEC1C3] rounded-[100px]">
@@ -231,11 +255,10 @@ const EducationalDetails = () => {
               </div>
             )}
           </div>
-
           {/* Currently Working Here Input */}
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="workingHere">
-              Currently working here*
+              Specialisation*
             </label>{" "}
             <br />
             <div className="relative w-full py-[7px] pt-1.5 px-[27px] overflow-hidden border border-[#BEC1C3] rounded-[100px]">
@@ -272,6 +295,55 @@ const EducationalDetails = () => {
                         handleSelectOption(
                           setWorkingHereTerm,
                           "workingHere"
+                        )(option)
+                      }
+                    >
+                      {option}
+                    </div>
+                  ))}
+              </div>
+            )}
+          </div>{" "}
+          {/* Designation Input */}
+          <div className="relative mt-6">
+            <label className="text-base font-medium" htmlFor="designation">
+              Currently studying here*
+            </label>{" "}
+            <br />
+            <div className="relative w-full py-[7px] pt-1.5 px-[27px] overflow-hidden border border-[#BEC1C3] rounded-[100px]">
+              <input
+                className="w-[440px]  max-w-[440px] text-base font-medium outline-none"
+                type="text"
+                placeholder="Designation"
+                value={designationTerm}
+                onChange={handleInputChange(setDesignationTerm, "designation")}
+                onClick={() => setActiveDropdown("designation")}
+              />
+              <span
+                onClick={() =>
+                  setActiveDropdown(
+                    activeDropdown === "industry" ? "" : "industry"
+                  )
+                }
+                className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer"
+              >
+                <DropDownIcon />
+              </span>
+            </div>
+            {activeDropdown === "designation" && (
+              <div className="absolute left-0 w-full bg-white  border-[#BEC1C3] rounded-[10px] mt-1 shadow-lg z-10">
+                {industryOptions
+                  .filter((option) =>
+                    option.toLowerCase().includes(designationTerm.toLowerCase())
+                  )
+                  .map((option, index) => (
+                    <div
+                      key={index}
+                      className="px-4 py-2  cursor-pointer border rounded-[10px] mt-1 p-1  hover:bg-blue-500 duration-300 hover:text-white"
+                      onClick={() =>
+                        handleSelectOption(
+                          setDesignationTerm,
+                          "designation"
                         )(option)
                       }
                     >
@@ -395,81 +467,54 @@ const EducationalDetails = () => {
               </div>
             </div>
           </div>
-          {/* Designation Input */}
-          <div className="relative mt-6">
-            <label className="text-base font-medium" htmlFor="designation">
-              Designation*
-            </label>{" "}
-            <br />
-            <div className="relative w-full py-[7px] pt-1.5 px-[27px] overflow-hidden border border-[#BEC1C3] rounded-[100px]">
-              <input
-                className="w-[440px]  max-w-[440px] text-base font-medium outline-none"
-                type="text"
-                placeholder="Designation"
-                value={designationTerm}
-                onChange={handleInputChange(setDesignationTerm, "designation")}
-                onClick={() => setActiveDropdown("designation")}
-              />
-              <span
-                onClick={() =>
-                  setActiveDropdown(
-                    activeDropdown === "industry" ? "" : "industry"
-                  )
-                }
-                className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer"
-              >
-                <DropDownIcon />
-              </span>
-            </div>
-            {activeDropdown === "designation" && (
-              <div className="absolute left-0 w-full bg-white  border-[#BEC1C3] rounded-[10px] mt-1 shadow-lg z-10">
-                {industryOptions
-                  .filter((option) =>
-                    option.toLowerCase().includes(designationTerm.toLowerCase())
-                  )
-                  .map((option, index) => (
-                    <div
-                      key={index}
-                      className="px-4 py-2  cursor-pointer border rounded-[10px] mt-1 p-1  hover:bg-blue-500 duration-300 hover:text-white"
-                      onClick={() =>
-                        handleSelectOption(
-                          setDesignationTerm,
-                          "designation"
-                        )(option)
-                      }
-                    >
-                      {option}
-                    </div>
-                  ))}
-              </div>
-            )}
-          </div>
-
           {/* Location Input */}
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="location">
-              Location
+              If currently studying*
             </label>{" "}
             <br />
-            <div className="relative w-full pt-1.5 py-[7px] px-[27px] border  border-[#BEC1C3] rounded-[100px]">
-              <input
-                className="w-full text-base font-medium outline-none"
-                type="text"
-                placeholder="Location"
-                value={locationTerm}
-                onChange={handleInputChange(setLocationTerm, "location")}
-                onClick={() => setActiveDropdown("location")}
-              />
-              <span
-                onClick={() =>
-                  setActiveDropdown(
-                    activeDropdown === "industry" ? "" : "industry"
-                  )
-                }
-                className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer"
-              >
-                <DropDownIcon />
-              </span>
+            <div className="flex gap-3">
+              {" "}
+              <div className="relative w-full pt-1.5 py-[7px] px-[27px] border  border-[#BEC1C3] rounded-[100px]">
+                <input
+                  className="w-full text-base font-medium outline-none"
+                  type="text"
+                  placeholder="Year"
+                  value={locationTerm}
+                  onChange={handleInputChange(setLocationTerm, "location")}
+                  onClick={() => setActiveDropdown("location")}
+                />
+                <span
+                  onClick={() =>
+                    setActiveDropdown(
+                      activeDropdown === "industry" ? "" : "industry"
+                    )
+                  }
+                  className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer"
+                >
+                  <DropDownIcon />
+                </span>
+              </div>
+              <div className="relative w-full pt-1.5 py-[7px] px-[27px] border  border-[#BEC1C3] rounded-[100px]">
+                <input
+                  className="w-full text-base font-medium outline-none"
+                  type="text"
+                  placeholder="Semester"
+                  value={locationTerm}
+                  onChange={handleInputChange(setLocationTerm, "location")}
+                  onClick={() => setActiveDropdown("location")}
+                />
+                <span
+                  onClick={() =>
+                    setActiveDropdown(
+                      activeDropdown === "industry" ? "" : "industry"
+                    )
+                  }
+                  className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer"
+                >
+                  <DropDownIcon />
+                </span>
+              </div>
             </div>
             {activeDropdown === "location" && (
               <div className="absolute left-0 w-full bg-white  border-[#BEC1C3] rounded-[10px] mt-1 shadow-lg z-10">

@@ -17,7 +17,7 @@ const ProfessionalDetails = ({ onClose }) => {
   const [locationTerm, setLocationTerm] = useState("");
   const [activeDropdown, setActiveDropdown] = useState("");
   const [addDetails, setAddDetails] = useState([]);
-    const [activeSteps, setActiveSteps] = useState(0);
+  const [activeSteps, setActiveSteps] = useState(0);
 
   const [formData, setFormData] = useState({
     month: "",

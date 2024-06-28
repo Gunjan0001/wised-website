@@ -25,7 +25,7 @@ const MainPage = () => {
         Continue
       </button>
 
-      {showPopup && <ProfessionalDetails onClose={handleClosePopup} />}
+      {showPopup && <EducationalDetails onClose={handleClosePopup} />}
     </div>
   );
 };
