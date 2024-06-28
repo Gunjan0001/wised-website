@@ -251,7 +251,6 @@ export  function ProfessionalDetails({ onClose }) {
               </div>
             )}
           </div>
-
           {/* STARTING AND ENDING DATE */}
           <div className="flex flex-wrap justify-between w-full mt-6">
             <div className="flex min-[400px]:w-1/2 flex-col gap-2">
@@ -369,7 +368,6 @@ export  function ProfessionalDetails({ onClose }) {
               </div>
             </div>
           </div>
-
           {/* Designation Input */}
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="designation">
