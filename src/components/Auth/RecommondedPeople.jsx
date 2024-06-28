@@ -15,8 +15,8 @@ const RecommondedPeople = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 lg:h-screen lg:py-8 px-3">
-      <div className="w-full sm:w-[540px] bg-white shadow rounded-[40px] py-6 lg:py-11 px-5 md:px-10 mx-auto ">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 xl:h-screen xl:py-8 px-3">
+      <div className="w-full sm:w-[540px] bg-white shadow rounded-[40px] py-6 xl:py-11 px-5 md:px-10 mx-auto ">
         <div className="flex justify-between items-center">
           <button>
             <BackArrowIcon />
@@ -42,7 +42,7 @@ const RecommondedPeople = ({ onClose }) => {
             <p className="text-gray">| Looking for....</p>
           </div>
         </div>
-        <div className=" mt-2 lg:mt-8 h-[280px] overflow-y-auto hide-scrollbar">
+        <div className=" mt-2 xl:mt-8 h-[280px] overflow-y-auto hide-scrollbar">
           <div className="items-center justify-between">
             {recommondedPeopledata.map((val, i) => {
               return (

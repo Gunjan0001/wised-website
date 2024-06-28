@@ -3,31 +3,26 @@ import {
   AddIcon,
   BackArrowIcon,
   CrossIcon,
+  DeleteIcon,
   DropDownIcon,
+  EditIcon,
 } from "../common/Icons";
 import PersonaliseCommonBtn from "./PersonaliseCommonBtn";
 import StepBar from "./StepBar";
-
-export function ProfessionalDetails({ onClose }) {
+const ProfessionalDetails = ({ onClose }) => {
   const [industryTerm, setIndustryTerm] = useState("");
   const [companyTerm, setCompanyTerm] = useState("");
   const [workingHereTerm, setWorkingHereTerm] = useState("");
   const [designationTerm, setDesignationTerm] = useState("");
   const [locationTerm, setLocationTerm] = useState("");
   const [activeDropdown, setActiveDropdown] = useState("");
+  const [addDetails, setAddDetails] = useState([]);
+    const [activeSteps, setActiveSteps] = useState(0);
+
   const [formData, setFormData] = useState({
-    username: "",
-    day: "",
     month: "",
     year: "",
   });
-  const handleDayChange = (e) => {
-    const { value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      day: value,
-    }));
-  };
 
   const handleMonthChange = (e) => {
     const { value } = e.target;
@@ -45,21 +40,20 @@ export function ProfessionalDetails({ onClose }) {
       year: value,
     }));
   };
-
-  const [activeSteps, setActiveSteps] = useState(0);
   const totalSteps = 5;
-
   const handleContinueClick = () => {
     if (activeSteps < totalSteps - 1) {
       setActiveSteps(activeSteps + 1);
     }
   };
 
-  const industryOptions = ["Option 1", "Option 2", "Option 3"];
+  const industryOptions = [
+    "DLF Groups",
+    "TATA",
+    "Reliance Industries Limited.",
+  ];
   const workingHereOptions = ["Yes", "No"];
-
   const formRef = useRef(null);
-
   const handleInputChange = (setter, dropdownName) => (e) => {
     setter(e.target.value);
     setActiveDropdown(dropdownName);
@@ -69,26 +63,37 @@ export function ProfessionalDetails({ onClose }) {
     setter(option);
     setActiveDropdown("");
   };
-
   const handleClickOutside = (e) => {
     if (formRef.current && !formRef.current.contains(e.target)) {
       setActiveDropdown("");
     }
   };
+  useEffect(() => {}, []);
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = {
+      industry: industryTerm,
+      company: companyTerm,
+      workingHere: workingHereTerm,
+      designation: designationTerm,
+      location: locationTerm,
     };
-  }, []);
+    setAddDetails(formData);
 
+    setAddDetails((prevDetails) => [{ ...prevDetails, formData }]);
+    setIndustryTerm("");
+    setCompanyTerm("");
+    setWorkingHereTerm("");
+    setDesignationTerm("");
+    setLocationTerm("");
+  };
+  //   console.log(addDetails, "add details");
   const getColorClass = (value) =>
     value ? "text-black  border-black" : "text-gray";
-
   return (
     <>
-      <div className="w-full sm:max-w-[540px] bg-white shadow-xl rounded-[40px] py-11 px-[22px] sm:mx-auto">
+      <div className="w-full sm:w-[540px] bg-white shadow rounded-[40px] py-6 xl:py-11 px-5 md:px-10 mx-auto ">
         <div className="flex justify-between items-center">
           <button>
             <BackArrowIcon />
@@ -98,24 +103,74 @@ export function ProfessionalDetails({ onClose }) {
             <CrossIcon />
           </button>
         </div>
+        <StepBar
+          className="mt-6"
+          activeSteps={activeSteps}
+          totalSteps={totalSteps}
+        />
 
-        <StepBar activeSteps={activeSteps} totalSteps={totalSteps} />
-        <div className="flex justify-end mt-6 sm:px-9">
-          <button className="flex items-center gap-2 py-[10px] px-6 text-base font-normal border rounded-[100px] border-[#BEC1C3]">
-            <AddIcon />
-            Add
-          </button>
-        </div>
-        <form ref={formRef} className="sm:px-9">
+        <form ref={formRef} onSubmit={handleSubmit}>
+          <div className="flex flex-col items-end mt-6">
+            <span>
+              {" "}
+              <button
+                type="submit"
+                className="flex items-center gap-2 py-[10px] px-6 text-base font-normal hover:bg-blue-500 hover:text-white border rounded-[100px] border-[#BEC1C3] "
+              >
+                <span>
+                  <AddIcon />
+                </span>{" "}
+                Add
+              </button>
+            </span>
+            <div className="flex w-full">
+              {addDetails.map((items, index) => {
+                console.log(items, "items");
+                return (
+                  <div
+                    key={index}
+                    className="bg-[#F7F7F7] w-full py-3 sm:py-5 px-3 sm:px-8 rounded-[10px] flex flex-wrap mt-6"
+                  >
+                    <div className="w-full sm:w-1/2">
+                      <p className="font-normal text-base text-black">
+                        {items.company}
+                      </p>
+                      <p className="font-normal text-base text-black">
+                        {items.designation}
+                      </p>
+                      <p className="font-normal text-base text-black">
+                        {items.industry}
+                      </p>
+                      <p className="font-normal text-base text-black">
+                        {items.location}
+                      </p>
+                      <p className="font-normal text-base text-black">
+                        {items.workingHere}
+                      </p>
+                    </div>
+                    <div className="w-full sm:w-1/2 ">
+                      <div className="flex w-full h-full justify-end items-center">
+                        <span className="flex gap-4 sm:gap-7">
+                          <EditIcon />
+
+                          <DeleteIcon />
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
           {/* Industry Input */}
-          <div className="relative">
+          <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="industry">
               Industry*
             </label>{" "}
             <br />
-            <div className="relative w-full  mt-1.5 py-[7px] px-[27px] border overflow-hidden border-[#BEC1C3] rounded-[100px]">
+            <div className="relative w-full  pt-1.5 py-[7px] px-[27px] border overflow-hidden border-[#BEC1C3] rounded-[100px]">
               <input
-                className="w-[440px] max-w-[440px] text-base font-medium outline-none "
+                className="w-full  text-base font-medium outline-none "
                 type="text"
                 placeholder="Industry"
                 value={industryTerm}
@@ -142,7 +197,7 @@ export function ProfessionalDetails({ onClose }) {
                   .map((option, index) => (
                     <div
                       key={index}
-                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                      className="px-4 py-2 border rounded-[10px] mt-1 p-1  hover:bg-blue-500 duration-300 hover:text-white cursor-pointer"
                       onClick={() =>
                         handleSelectOption(setIndustryTerm, "industry")(option)
                       }
@@ -160,9 +215,9 @@ export function ProfessionalDetails({ onClose }) {
               Company name*
             </label>{" "}
             <br />
-            <div className="relative w-full  py-[7px] px-[27px] mt-1.5 border overflow-hidden border-[#BEC1C3] rounded-[100px]">
+            <div className="relative w-full  py-[7px] px-[27px] pt-1.5 border overflow-hidden border-[#BEC1C3] rounded-[100px]">
               <input
-                className="w-[440px] max-w-[440px] text-base font-medium outline-none "
+                className="w-full text-base font-medium outline-none "
                 type="text"
                 placeholder="Company name"
                 value={companyTerm}
@@ -189,7 +244,7 @@ export function ProfessionalDetails({ onClose }) {
                   .map((option, index) => (
                     <div
                       key={index}
-                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                      className="px-4 py-2 border rounded-[10px] mt-1 p-1  hover:bg-blue-500 duration-300 hover:text-white cursor-pointer"
                       onClick={() =>
                         handleSelectOption(setCompanyTerm, "company")(option)
                       }
@@ -207,9 +262,9 @@ export function ProfessionalDetails({ onClose }) {
               Currently working here*
             </label>{" "}
             <br />
-            <div className="relative w-full py-[7px] mt-1.5 px-[27px] overflow-hidden border border-[#BEC1C3] rounded-[100px]">
+            <div className="relative w-full py-[7px] pt-1.5 px-[27px] overflow-hidden border border-[#BEC1C3] rounded-[100px]">
               <input
-                className="w-[440px]  max-w-[440px] text-base font-medium outline-none"
+                className="w-full text-base font-medium outline-none"
                 type="text"
                 placeholder="Yes"
                 value={workingHereTerm}
@@ -236,7 +291,7 @@ export function ProfessionalDetails({ onClose }) {
                   .map((option, index) => (
                     <div
                       key={index}
-                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                      className="px-4 py-2  cursor-pointer border rounded-[10px] mt-1 p-1  hover:bg-blue-500 duration-300 hover:text-white"
                       onClick={() =>
                         handleSelectOption(
                           setWorkingHereTerm,
@@ -250,8 +305,6 @@ export function ProfessionalDetails({ onClose }) {
               </div>
             )}
           </div>
-
-          {/* STARTING AND ENDING DATE */}
           <div className="flex flex-wrap justify-between w-full mt-6">
             <div className="flex min-[400px]:w-1/2 flex-col gap-2">
               <label
@@ -260,9 +313,8 @@ export function ProfessionalDetails({ onClose }) {
               >
                 month
               </label>
-              <div className="flex gap-2">
-                {" "}
-                <div className="flex flex-col gap-1">
+              <div className="flex w-full gap-2">
+                <div className="flex w-1/2 flex-col gap-1 px-2">
                   <div
                     className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
                       formData.month
@@ -285,7 +337,7 @@ export function ProfessionalDetails({ onClose }) {
                     </select>
                   </div>
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="flex w-1/2 flex-col gap-1 px-2">
                   <div
                     className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
                       formData.year
@@ -317,9 +369,8 @@ export function ProfessionalDetails({ onClose }) {
               >
                 Year
               </label>
-              <div className="flex gap-2 ">
-                {" "}
-                <div className="flex flex-col gap-1">
+              <div className="flex  w-full gap-2 ">
+                <div className="w-1/2 flex flex-col gap-1 px-2">
                   <div
                     className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
                       formData.month
@@ -342,7 +393,7 @@ export function ProfessionalDetails({ onClose }) {
                     </select>
                   </div>
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="w-1/2 flex flex-col gap-1 px-2">
                   <div
                     className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
                       formData.year
@@ -368,14 +419,13 @@ export function ProfessionalDetails({ onClose }) {
               </div>
             </div>
           </div>
-
           {/* Designation Input */}
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="designation">
               Designation*
             </label>{" "}
             <br />
-            <div className="relative w-full py-[7px] mt-1.5 px-[27px] overflow-hidden border border-[#BEC1C3] rounded-[100px]">
+            <div className="relative w-full py-[7px] pt-1.5 px-[27px] overflow-hidden border border-[#BEC1C3] rounded-[100px]">
               <input
                 className="w-[440px]  max-w-[440px] text-base font-medium outline-none"
                 type="text"
@@ -404,7 +454,7 @@ export function ProfessionalDetails({ onClose }) {
                   .map((option, index) => (
                     <div
                       key={index}
-                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                      className="px-4 py-2  cursor-pointer border rounded-[10px] mt-1 p-1  hover:bg-blue-500 duration-300 hover:text-white"
                       onClick={() =>
                         handleSelectOption(
                           setDesignationTerm,
@@ -425,9 +475,9 @@ export function ProfessionalDetails({ onClose }) {
               Location
             </label>{" "}
             <br />
-            <div className="relative w-full mt-1.5 py-[7px] px-[27px] border overflow-hidden border-[#BEC1C3] rounded-[100px]">
+            <div className="relative w-full pt-1.5 py-[7px] px-[27px] border  border-[#BEC1C3] rounded-[100px]">
               <input
-                className="w-[440px] max-w-[440px] text-base font-medium outline-none"
+                className="w-full text-base font-medium outline-none"
                 type="text"
                 placeholder="Location"
                 value={locationTerm}
@@ -454,7 +504,7 @@ export function ProfessionalDetails({ onClose }) {
                   .map((option, index) => (
                     <div
                       key={index}
-                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                      className="px-4 py-2 border rounded-[10px] mt-1 p-1  hover:bg-blue-500 duration-300 hover:text-white cursor-pointer"
                       onClick={() =>
                         handleSelectOption(setLocationTerm, "location")(option)
                       }
@@ -465,11 +515,13 @@ export function ProfessionalDetails({ onClose }) {
               </div>
             )}
           </div>
-          <div className="mt-10 flex justify-center">
-            <PersonaliseCommonBtn onClick={handleContinueClick} />
-          </div>
         </form>
+        <div className="mt-10 flex justify-center">
+          <PersonaliseCommonBtn onClick={handleContinueClick} />
+        </div>
       </div>
     </>
   );
-}
+};
+
+export default ProfessionalDetails;

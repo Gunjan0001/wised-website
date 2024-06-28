@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import RecommondedPeople from "./RecommondedPeople";
 import UserInterestPopup from "./UserIntrestPopup";
 import UserPersonalDetails from "./UserPersonalDetails";
-import { ProfessionalDetails } from "./ProfessionalDetails";
 import EducationalDetails from "./EducationalDetails";
+import ProfessionalDetails from "./ProfessionalDetails";
 
 const MainPage = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -25,7 +25,7 @@ const MainPage = () => {
         Continue
       </button>
 
-      {showPopup && <EducationalDetails onClose={handleClosePopup} />}
+      {showPopup && <ProfessionalDetails onClose={handleClosePopup} />}
     </div>
   );
 };
