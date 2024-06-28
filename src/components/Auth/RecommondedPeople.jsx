@@ -1,40 +1,75 @@
-import React from "react";
-import { CrossIcon } from "../common/Icons";
-import logo from "../../assets/images/png/Logo.png";
+import { useState } from "react";
+import { BackArrowIcon, CrossIcon, SearchIcon } from "../common/Icons";
+import StepBar from "./StepBar";
+import PersonaliseCommonBtn from "./PersonaliseCommonBtn";
+import { recommondedPeopledata } from "../common/Helper";
+
 const RecommondedPeople = ({ onClose }) => {
+  const [activeSteps, setActiveSteps] = useState(0);
+  const totalSteps = 5;
+
+  const handleContinueClick = () => {
+    if (activeSteps < totalSteps - 1) {
+      setActiveSteps(activeSteps + 1);
+    }
+  };
+
   return (
-    <div className="w-[540px] p-6">
-      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div className="bg-white p-6 rounded-lg relative">
-          <button
-            onClick={onClose}
-            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-          >
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 lg:h-screen lg:py-8 px-3">
+      <div className="w-full sm:w-[540px] bg-white shadow rounded-[40px] py-6 lg:py-11 px-5 md:px-10 mx-auto ">
+        <div className="flex justify-between items-center">
+          <button>
+            <BackArrowIcon />
+          </button>
+          <h2 className="font-semibold text-base text-black">Personalise</h2>
+          <button onClick={onClose}>
             <CrossIcon />
           </button>
-          <p className="font-medium text-base mt-12 text-center">
+        </div>
+
+        <StepBar activeSteps={activeSteps} totalSteps={totalSteps} />
+        <div className="mt-5">
+          <h1 className="text-center text-base font-medium">
             Recommended people
-          </p>
-          <p className="font-medium text-base mt-3 text-center text-gray">
+          </h1>
+          <h2 className="text-center text-base font-medium text-gray mt-1 md:mt-3">
             Choose 5 or more
-          </p>
-          <div className="text-base mt-3 justify-center flex items-center gap-2 text-gray">
-            <p>| Looking for....</p>
+          </h2>
+          <div className="flex gap-3 justify-center items-center mt-1 md:mt-3">
+            <span>
+              <SearchIcon />
+            </span>
+            <p className="text-gray">| Looking for....</p>
           </div>
-          <div className="mt-8 w-[540px]">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <img src={logo} alt="person" />
-               <div>
-               <p className="ml-2 mb-0 font-medium text-md">Darrell Steward</p>
-               <p className="ml-2 mb-0">QA Engineer</p>
-               </div>
-              </div>
-              <button className="flex items-center text-sm w-[75px] h-[36px]">
-                Follow
-              </button>
-            </div>
+        </div>
+        <div className=" mt-2 lg:mt-8 h-[280px] overflow-y-auto hide-scrollbar">
+          <div className="items-center justify-between">
+            {recommondedPeopledata.map((val, i) => {
+              return (
+                <div className="flex items-center justify-between mt-4" key={i}>
+                  <div className="flex items-center gap-2">
+                    <img
+                      className=" w-[30px] h-[30px]sm:w-[51px] sm:h-[51px]"
+                      src={val.img}
+                      alt="logo"
+                    />
+                    <div>
+                      <p className="mb-0 font-medium text-sm sm:text-md">
+                        {val.name}
+                      </p>
+                      <p className="mb-0 text-xs sm:text-base">{val.title}</p>
+                    </div>
+                  </div>
+                  <button className="border border-solid border-gray rounded-[100px] w-[75px] h-[36px]">
+                    Follow
+                  </button>
+                </div>
+              );
+            })}
           </div>
+        </div>
+        <div className="mt-10 flex justify-center">
+          <PersonaliseCommonBtn onClick={handleContinueClick} />
         </div>
       </div>
     </div>
