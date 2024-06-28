@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import StepBar from "./StepBar";
 import PersonaliseCommonBtn from "./PersonaliseCommonBtn";
+import { BackArrowIcon, CrossIcon } from "../common/Icons";
 
-const UserPersonalDetails = () => {
+const UserPersonalDetails = ({ onClose }) => {
   const [activeSteps, setActiveSteps] = useState(0);
   const [formData, setFormData] = useState({
     username: "",
@@ -44,12 +45,13 @@ const UserPersonalDetails = () => {
       year: value,
     }));
   };
-
-  const handleContinueClick = (e) => {
-    e.preventDefault();
+  const handleContinueClick = () => {
     if (activeSteps < totalSteps - 1) {
       setActiveSteps(activeSteps + 1);
     }
+  };
+  const onsubmit = (e) => {
+    e.preventDefault();
     console.log("Saved Data: ", formData);
     setFormData({
       username: "",
@@ -57,16 +59,28 @@ const UserPersonalDetails = () => {
       month: "",
       year: "",
     });
+    handleContinueClick()
   };
+
   const getColorClass = (value) =>
     value ? "text-black  border-black" : "text-gray";
 
   return (
-    <div className="max-w-[540px] h-[640px] flex flex-col bg-white shadow rounded-[40px] py-6 lg:py-11 px-[22px]">
-      <StepBar activeSteps={activeSteps} totalSteps={totalSteps} />
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 xl:h-screen xl:py-8 px-3">
+    <div className="w-full sm:w-[540px] bg-white shadow rounded-[40px] py-6 xl:py-11 px-5 md:px-10 mx-auto ">
+      <div className="flex justify-between items-center">
+        <button>
+          <BackArrowIcon />
+        </button>
+        <h2 className="font-semibold text-base text-black">Personalise</h2>
+        <button onClick={onClose}>
+          <CrossIcon />
+        </button>
+      </div>
+      <StepBar className="mt-6" activeSteps={activeSteps} totalSteps={totalSteps} />
 
-      <form action="" className="h-full flex flex-col justify-between">
-        <div>
+      <form onSubmit={onsubmit} action="" className="h-full flex flex-col justify-between">
+        <div className="px-6">
           <div className="flex flex-col gap-1 mt-6">
             <label htmlFor="username">Username*</label>
             <input
@@ -74,13 +88,14 @@ const UserPersonalDetails = () => {
               type="text"
               id="username"
               name="username"
+              required
               onChange={handleInputChange}
               value={formData.username}
               placeholder="Choose a username"
             />
           </div>
           <h2 className="font-medium text-base text-black  mt-6">Enter DOB*</h2>
-          <div className="flex gap-2">
+          <div className="flex gap-2 ">
             <div className="flex flex-col gap-1 w-1/3 ">
               <label
                 htmlFor="date"
@@ -171,10 +186,12 @@ const UserPersonalDetails = () => {
           </div>
         </div>
         <div className="mt-10 flex justify-center">
-          <PersonaliseCommonBtn onClick={handleContinueClick} />
+          <PersonaliseCommonBtn  />
         </div>
       </form>
     </div>
+    </div>
+ 
   );
 };
 

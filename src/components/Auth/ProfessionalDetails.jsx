@@ -8,7 +8,7 @@ import {
 import PersonaliseCommonBtn from "./PersonaliseCommonBtn";
 import StepBar from "./StepBar";
 
-export function ProfessionalDetails({ onClose }) {
+export  function ProfessionalDetails({ onClose }) {
   const [industryTerm, setIndustryTerm] = useState("");
   const [companyTerm, setCompanyTerm] = useState("");
   const [workingHereTerm, setWorkingHereTerm] = useState("");
