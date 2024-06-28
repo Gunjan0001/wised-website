@@ -15,6 +15,37 @@ export  function ProfessionalDetails({ onClose }) {
   const [designationTerm, setDesignationTerm] = useState("");
   const [locationTerm, setLocationTerm] = useState("");
   const [activeDropdown, setActiveDropdown] = useState("");
+  const [formData, setFormData] = useState({
+    username: "",
+    day: "",
+    month: "",
+    year: "",
+  });
+  const handleDayChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      day: value,
+    }));
+  };
+
+  const handleMonthChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      month: value,
+    }));
+  };
+
+  const handleYearChange = (e) => {
+    const { value } = e.target;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      year: value,
+    }));
+  };
+
   const [activeSteps, setActiveSteps] = useState(0);
   const totalSteps = 5;
 
@@ -52,9 +83,13 @@ export  function ProfessionalDetails({ onClose }) {
     };
   }, []);
 
+  const getColorClass = (value) =>
+    value ? "text-black  border-black" : "text-gray";
+
   return (
     <>
-      <div className="w-full sm:max-w-[540px] bg-white shadow-xl rounded-[40px] py-11 px-[22px] sm:mx-auto">
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 xl:h-screen xl:py-8 px-3">
+      <div className="w-full sm:w-[540px] bg-white shadow rounded-[40px] py-6 xl:py-11 px-5 md:px-10 mx-auto ">
         <div className="flex justify-between items-center">
           <button>
             <BackArrowIcon />
@@ -77,7 +112,7 @@ export  function ProfessionalDetails({ onClose }) {
           <div className="relative">
             <label className="text-base font-medium" htmlFor="industry">
               Industry*
-            </label>{" "}
+            </label>
             <br />
             <div className="relative w-full  mt-1.5 py-[7px] px-[27px] border overflow-hidden border-[#BEC1C3] rounded-[100px]">
               <input
@@ -124,7 +159,7 @@ export  function ProfessionalDetails({ onClose }) {
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="company">
               Company name*
-            </label>{" "}
+            </label>
             <br />
             <div className="relative w-full  py-[7px] px-[27px] mt-1.5 border overflow-hidden border-[#BEC1C3] rounded-[100px]">
               <input
@@ -171,7 +206,7 @@ export  function ProfessionalDetails({ onClose }) {
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="workingHere">
               Currently working here*
-            </label>{" "}
+            </label>
             <br />
             <div className="relative w-full py-[7px] mt-1.5 px-[27px] overflow-hidden border border-[#BEC1C3] rounded-[100px]">
               <input
@@ -215,16 +250,131 @@ export  function ProfessionalDetails({ onClose }) {
                   ))}
               </div>
             )}
+          </div>
+
+          {/* STARTING AND ENDING DATE */}
+          <div className="flex flex-wrap justify-between w-full mt-6">
+            <div className="flex min-[400px]:w-1/2 flex-col gap-2">
+              <label
+                htmlFor="month"
+                className="font-normal text-black text-base capitalize"
+              >
+                month
+              </label>
+              <div className="flex w-full gap-2">
+                
+                <div className="flex w-1/2 flex-col gap-1 px-2">
+                  <div
+                    className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
+                      formData.month
+                    )}`}
+                  >
+                    <select
+                      id="month"
+                      className={`font-normal text-[13px]  sm:text-base w-full outline-none ${getColorClass(
+                        formData.month
+                      )}`}
+                      value={formData.month}
+                      onChange={handleMonthChange}
+                    >
+                      <option value="">MM</option>
+                      {[...Array(12)].map((_, i) => (
+                        <option key={i + 1} value={i + 1}>
+                          {i + 1}
+                        </option>
+                      ))}
+                    </select>
                   </div>
-                  
-                  {/* STARTING AND ENDING DATE */}
-                  
+                </div>
+                <div className="flex w-1/2 flex-col gap-1 px-2">
+                  <div
+                    className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
+                      formData.year
+                    )}`}
+                  >
+                    <select
+                      id="year"
+                      className={`font-normal text-[13px] sm:text-base w-full outline-none ${getColorClass(
+                        formData.year
+                      )}`}
+                      value={formData.year}
+                      onChange={handleYearChange}
+                    >
+                      <option value="">YYYY</option>
+                      {[...Array(100)].map((_, i) => (
+                        <option key={i + 1930} value={i + 1930}>
+                          {i + 1925}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex min-[400px]:w-1/2 flex-col gap-2">
+              <label
+                htmlFor="month"
+                className="font-normal text-black text-base capitalize"
+              >
+                Year
+              </label>
+              <div className="flex  w-full gap-2 ">
+                
+                <div className="w-1/2 flex flex-col gap-1 px-2">
+                  <div
+                    className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
+                      formData.month
+                    )}`}
+                  >
+                    <select
+                      id="month"
+                      className={`font-normal text-[13px]  sm:text-base w-full outline-none ${getColorClass(
+                        formData.month
+                      )}`}
+                      value={formData.month}
+                      onChange={handleMonthChange}
+                    >
+                      <option value="">MM</option>
+                      {[...Array(12)].map((_, i) => (
+                        <option key={i + 1} value={i + 1}>
+                          {i + 1}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="w-1/2 flex flex-col gap-1 px-2">
+                  <div
+                    className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
+                      formData.year
+                    )}`}
+                  >
+                    <select
+                      id="year"
+                      className={`font-normal text-[13px] sm:text-base w-full outline-none ${getColorClass(
+                        formData.year
+                      )}`}
+                      value={formData.year}
+                      onChange={handleYearChange}
+                    >
+                      <option value="">YYYY</option>
+                      {[...Array(100)].map((_, i) => (
+                        <option key={i + 1930} value={i + 1930}>
+                          {i + 1925}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           {/* Designation Input */}
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="designation">
               Designation*
-            </label>{" "}
+            </label>
             <br />
             <div className="relative w-full py-[7px] mt-1.5 px-[27px] overflow-hidden border border-[#BEC1C3] rounded-[100px]">
               <input
@@ -274,7 +424,7 @@ export  function ProfessionalDetails({ onClose }) {
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="location">
               Location
-            </label>{" "}
+            </label>
             <br />
             <div className="relative w-full mt-1.5 py-[7px] px-[27px] border overflow-hidden border-[#BEC1C3] rounded-[100px]">
               <input
@@ -320,6 +470,7 @@ export  function ProfessionalDetails({ onClose }) {
             <PersonaliseCommonBtn onClick={handleContinueClick} />
           </div>
         </form>
+      </div>
       </div>
     </>
   );
