@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import CommonBtn from "../common/CommonBtn";
 import RecommondedPeople from "./RecommondedPeople";
 import UserInterestPopup from "./UserIntrestPopup";
 import UserPersonalDetails from "./UserPersonalDetails";
@@ -25,7 +24,7 @@ const MainPage = () => {
         Continue
       </button>
 
-      {showPopup && <UserPersonalDetails onClose={handleClosePopup} />}
+      {showPopup && <ProfessionalDetails onClose={handleClosePopup} />}
     </div>
   );
 };

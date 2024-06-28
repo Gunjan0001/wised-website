@@ -15,6 +15,37 @@ export function ProfessionalDetails({ onClose }) {
   const [designationTerm, setDesignationTerm] = useState("");
   const [locationTerm, setLocationTerm] = useState("");
   const [activeDropdown, setActiveDropdown] = useState("");
+  const [formData, setFormData] = useState({
+    username: "",
+    day: "",
+    month: "",
+    year: "",
+  });
+  const handleDayChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      day: value,
+    }));
+  };
+
+  const handleMonthChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      month: value,
+    }));
+  };
+
+  const handleYearChange = (e) => {
+    const { value } = e.target;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      year: value,
+    }));
+  };
+
   const [activeSteps, setActiveSteps] = useState(0);
   const totalSteps = 5;
 
@@ -51,6 +82,9 @@ export function ProfessionalDetails({ onClose }) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const getColorClass = (value) =>
+    value ? "text-black  border-black" : "text-gray";
 
   return (
     <>
@@ -215,10 +249,125 @@ export function ProfessionalDetails({ onClose }) {
                   ))}
               </div>
             )}
+          </div>
+
+          {/* STARTING AND ENDING DATE */}
+          <div className="flex flex-wrap justify-between w-full mt-6">
+            <div className="flex min-[400px]:w-1/2 flex-col gap-2">
+              <label
+                htmlFor="month"
+                className="font-normal text-black text-base capitalize"
+              >
+                month
+              </label>
+              <div className="flex gap-2">
+                {" "}
+                <div className="flex flex-col gap-1">
+                  <div
+                    className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
+                      formData.month
+                    )}`}
+                  >
+                    <select
+                      id="month"
+                      className={`font-normal text-[13px]  sm:text-base w-full outline-none ${getColorClass(
+                        formData.month
+                      )}`}
+                      value={formData.month}
+                      onChange={handleMonthChange}
+                    >
+                      <option value="">MM</option>
+                      {[...Array(12)].map((_, i) => (
+                        <option key={i + 1} value={i + 1}>
+                          {i + 1}
+                        </option>
+                      ))}
+                    </select>
                   </div>
-                  
-                  {/* STARTING AND ENDING DATE */}
-                  
+                </div>
+                <div className="flex flex-col gap-1">
+                  <div
+                    className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
+                      formData.year
+                    )}`}
+                  >
+                    <select
+                      id="year"
+                      className={`font-normal text-[13px] sm:text-base w-full outline-none ${getColorClass(
+                        formData.year
+                      )}`}
+                      value={formData.year}
+                      onChange={handleYearChange}
+                    >
+                      <option value="">YYYY</option>
+                      {[...Array(100)].map((_, i) => (
+                        <option key={i + 1930} value={i + 1930}>
+                          {i + 1925}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex min-[400px]:w-1/2 flex-col gap-2">
+              <label
+                htmlFor="month"
+                className="font-normal text-black text-base capitalize"
+              >
+                Year
+              </label>
+              <div className="flex gap-2 ">
+                {" "}
+                <div className="flex flex-col gap-1">
+                  <div
+                    className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
+                      formData.month
+                    )}`}
+                  >
+                    <select
+                      id="month"
+                      className={`font-normal text-[13px]  sm:text-base w-full outline-none ${getColorClass(
+                        formData.month
+                      )}`}
+                      value={formData.month}
+                      onChange={handleMonthChange}
+                    >
+                      <option value="">MM</option>
+                      {[...Array(12)].map((_, i) => (
+                        <option key={i + 1} value={i + 1}>
+                          {i + 1}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <div
+                    className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
+                      formData.year
+                    )}`}
+                  >
+                    <select
+                      id="year"
+                      className={`font-normal text-[13px] sm:text-base w-full outline-none ${getColorClass(
+                        formData.year
+                      )}`}
+                      value={formData.year}
+                      onChange={handleYearChange}
+                    >
+                      <option value="">YYYY</option>
+                      {[...Array(100)].map((_, i) => (
+                        <option key={i + 1930} value={i + 1930}>
+                          {i + 1925}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           {/* Designation Input */}
           <div className="relative mt-6">
