@@ -9,6 +9,7 @@ const ByStream = () => {
       <NavBar />
       <RecommondationsPage />
       <CommonBtn />
+      
     </div>
   );
 };
