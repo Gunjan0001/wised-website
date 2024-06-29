@@ -19,24 +19,27 @@ const ProfessionalDetails = ({ onClose }) => {
   const [addDetails, setAddDetails] = useState([]);
   const [activeSteps, setActiveSteps] = useState(0);
 
-  const initialFormData = {
-    dropdowns: [
-      { id: 1, monthFrom: "", yearFrom: "", monthTill: "", yearTill: "" },
-      { id: 2, monthFrom: "", yearFrom: "", monthTill: "", yearTill: "" },
-    ],
-  };
+  const [formData, setFormData] = useState({
+    month: "",
+    year: "",
+  });
 
-  const [formData, setFormData] = useState(initialFormData);
-
-  const handleDropdownChange = (id, field, value) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      dropdowns: prevState.dropdowns.map((item) =>
-        item.id === id ? { ...item, [field]: value } : item
-      ),
+  const handleMonthChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      month: value,
     }));
   };
 
+  const handleYearChange = (e) => {
+    const { value } = e.target;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      year: value,
+    }));
+  };
   const totalSteps = 5;
   const handleContinueClick = () => {
     if (activeSteps < totalSteps - 1) {
@@ -222,6 +225,7 @@ const ProfessionalDetails = ({ onClose }) => {
               </div>
             )}
           </div>
+
           {/* Company Name Input */}
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="company">
@@ -268,6 +272,7 @@ const ProfessionalDetails = ({ onClose }) => {
               </div>
             )}
           </div>
+
           {/* Currently Working Here Input */}
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="workingHere">
@@ -317,77 +322,235 @@ const ProfessionalDetails = ({ onClose }) => {
               </div>
             )}
           </div>
-
-          <div className="flex flex-wrap justify-between w-full mt-6">
-            {formData.dropdowns.map((dropdown) => (
-              <div
-                key={dropdown.id}
-                className="flex w-full min-[400px]:w-1/2 flex-col gap-2"
+          {/* <div className="flex flex-wrap justify-between w-full mt-6">
+            <div className="flex min-[400px]:w-1/2 flex-col gap-2">
+              <label
+                htmlFor="month"
+                className="font-normal text-black text-base capitalize"
               >
-                <label
-                  htmlFor={`month-${dropdown.id}`}
-                  className="font-normal text-black text-base capitalize"
-                >
-                  from
-                </label>
-                <div className="flex w-full gap-2">
-                  <div className="flex w-1/2 flex-col gap-1 px-2">
-                    <div
-                      className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
+                month
+              </label>
+              <div className="flex w-full gap-2">
+                <div className="flex w-1/2 flex-col gap-1 px-2">
+                  <div
+                    className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
+                      formData.month
+                    )}`}
+                  >
+                    <select
+                      id="month"
+                      className={`font-normal text-[13px]  sm:text-base w-full outline-none ${getColorClass(
                         formData.month
                       )}`}
+                      value={formData.month}
+                      onChange={handleMonthChange}
                     >
-                      <select
-                        id={`month-${dropdown.id}`}
-                        className={`font-normal text-[13px] sm:text-base w-full outline-none`}
-                        value={dropdown.month}
-                        onChange={(e) =>
-                          handleDropdownChange(
-                            dropdown.id,
-                            "month",
-                            e.target.value
-                          )
-                        }
-                      >
-                        <option value="">MM</option>
-                        {[...Array(12)].map((_, i) => (
-                          <option key={i + 1} value={i + 1}>
-                            {i + 1}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                      <option value="">MM</option>
+                      {[...Array(12)].map((_, i) => (
+                        <option key={i + 1} value={i + 1}>
+                          {i + 1}
+                        </option>
+                      ))}
+                    </select>
                   </div>
-                  <div className="flex w-1/2 flex-col gap-1 px-2">
-                    <div
-                      className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
-                        formData.month
+                </div>
+                <div className="flex w-1/2 flex-col gap-1 px-2">
+                  <div
+                    className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
+                      formData.year
+                    )}`}
+                  >
+                    <select
+                      id="year"
+                      name="month"
+                      className={`font-normal text-[13px] sm:text-base w-full outline-none ${getColorClass(
+                        formData.year
                       )}`}
+                      value={formData.year}
+                      onChange={handleYearChange}
                     >
-                      <select
-                        id={`year-${dropdown.id}`}
-                        className={`font-normal text-[13px] sm:text-base w-full outline-none`}
-                        value={dropdown.year}
-                        onChange={(e) =>
-                          handleDropdownChange(
-                            dropdown.id,
-                            "year",
-                            e.target.value
-                          )
-                        }
-                      >
-                        <option value="">YYYY</option>
-                        {[...Array(100)].map((_, i) => (
-                          <option key={i + 1930} value={i + 1930}>
-                            {i + 1925}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                      <option value="">YYYY</option>
+                      {[...Array(100)].map((_, i) => (
+                        <option key={i + 1930} value={i + 1930}>
+                          {i + 1925}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
               </div>
-            ))}
+            </div>
+            <div className="flex min-[400px]:w-1/2 flex-col gap-2">
+              <label
+                htmlFor="year2"
+                className="font-normal text-black text-base capitalize"
+              >
+                Year
+              </label>
+              <div className="flex  w-full gap-2 ">
+                <div className="w-1/2 flex flex-col gap-1 px-2">
+                  <div
+                    className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
+                      formData.month
+                    )}`}
+                  >
+                    <select
+                      id="year2"
+                      name="year"
+                      className={`font-normal text-[13px]  sm:text-base w-full outline-none ${getColorClass(
+                        formData.month
+                      )}`}
+                      value={formData.month}
+                      onChange={handleMonthChange}
+                    >
+                      <option value="">MM</option>
+                      {[...Array(12)].map((_, i) => (
+                        <option key={i + 1} value={i + 1}>
+                          {i + 1}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="w-1/2 flex flex-col gap-1 px-2">
+                  <div
+                    className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
+                      formData.year
+                    )}`}
+                  >
+                    <select
+                      id="year2"
+                      className={`font-normal text-[13px] sm:text-base w-full outline-none ${getColorClass(
+                        formData.year
+                      )}`}
+                      value={formData.year}
+                      onChange={handleYearChange}
+                    >
+                      <option value="">YYYY</option>
+                      {[...Array(100)].map((_, i) => (
+                        <option key={i + 1930} value={i + 1930}>
+                          {i + 1925}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> */}
+          <div className="flex flex-wrap justify-between w-full mt-6">
+            <div className="flex min-[400px]:w-1/2 flex-col gap-2">
+              <label
+                htmlFor="month1" // Unique id for the first set of dropdowns
+                className="font-normal text-black text-base capitalize"
+              >
+                Month
+              </label>
+              <div className="flex w-full gap-2">
+                <div className="flex w-1/2 flex-col gap-1 px-2">
+                  <div
+                    className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
+                      formData.month
+                    )}`}
+                  >
+                    <select
+                      id="month1" // Unique id for the first month dropdown
+                      className={`font-normal text-[13px] sm:text-base w-full outline-none ${getColorClass(
+                        formData.month
+                      )}`}
+                      value={formData.month}
+                      onChange={handleMonthChange}
+                    >
+                      <option value="">MM</option>
+                      {[...Array(12)].map((_, i) => (
+                        <option key={i + 1} value={i + 1}>
+                          {i + 1}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="flex w-1/2 flex-col gap-1 px-2">
+                  <div
+                    className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
+                      formData.year
+                    )}`}
+                  >
+                    <select
+                      id="year1" // Unique id for the first year dropdown
+                      className={`font-normal text-[13px] sm:text-base w-full outline-none ${getColorClass(
+                        formData.year
+                      )}`}
+                      value={formData.year}
+                      onChange={handleYearChange}
+                    >
+                      <option value="">YYYY</option>
+                      {[...Array(100)].map((_, i) => (
+                        <option key={i + 1930} value={i + 1930}>
+                          {i + 1925}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex min-[400px]:w-1/2 flex-col gap-2">
+              <label
+                htmlFor="month2" // Unique id for the second set of dropdowns
+                className="font-normal text-black text-base capitalize"
+              >
+                Year
+              </label>
+              <div className="flex w-full gap-2">
+                <div className="flex w-1/2 flex-col gap-1 px-2">
+                  <div
+                    className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
+                      formData.month
+                    )}`}
+                  >
+                    <select
+                      id="month2" // Unique id for the second month dropdown
+                      className={`font-normal text-[13px] sm:text-base w-full outline-none ${getColorClass(
+                        formData.month
+                      )}`}
+                      value={formData.month}
+                      onChange={handleMonthChange}
+                    >
+                      <option value="">MM</option>
+                      {[...Array(12)].map((_, i) => (
+                        <option key={i + 1} value={i + 1}>
+                          {i + 1}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="flex w-1/2 flex-col gap-1 px-2">
+                  <div
+                    className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
+                      formData.year
+                    )}`}
+                  >
+                    <select
+                      id="year2" // Unique id for the second year dropdown
+                      className={`font-normal text-[13px] sm:text-base w-full outline-none ${getColorClass(
+                        formData.year
+                      )}`}
+                      value={formData.year}
+                      onChange={handleYearChange}
+                    >
+                      <option value="">YYYY</option>
+                      {[...Array(100)].map((_, i) => (
+                        <option key={i + 1930} value={i + 1930}>
+                          {i + 1925}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Designation Input */}
@@ -439,6 +602,7 @@ const ProfessionalDetails = ({ onClose }) => {
               </div>
             )}
           </div>
+
           {/* Location Input */}
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="location">
