@@ -1,10 +1,13 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { userIntrestData } from "../common/Helper";
 import { BackArrowIcon, CrossIcon, SearchIcon } from "../common/Icons";
 import StepBar from "./StepBar";
 import PersonaliseCommonBtn from "./PersonaliseCommonBtn";
 
 const UserInterestPopup = ({ onClose }) => {
+  const [selectedButtons, setSelectedButtons] = useState(
+    Array(userIntrestData.length).fill(false)
+  );
   const [activeSteps, setActiveSteps] = useState(0);
   const totalSteps = 5;
 
@@ -13,6 +16,13 @@ const UserInterestPopup = ({ onClose }) => {
       setActiveSteps(activeSteps + 1);
     }
   };
+
+  const handleButtonClick = (index) => {
+    const newSelectedButtons = [...selectedButtons];
+    newSelectedButtons[index] = !newSelectedButtons[index];
+    setSelectedButtons(newSelectedButtons);
+  };
+
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 px-3">
       <div className="w-full sm:max-w-[540px] bg-white shadow rounded-[40px] py-11 px-[22px] sm:mx-auto">
@@ -32,7 +42,7 @@ const UserInterestPopup = ({ onClose }) => {
             What interests you ?
           </h1>
 
-          <h2 className="text-center text-base font-medium  text-gray">
+          <h2 className="text-center text-base font-medium text-gray">
             Choose 5 or more
           </h2>
 
@@ -44,15 +54,25 @@ const UserInterestPopup = ({ onClose }) => {
           </div>
         </div>
         <div className="flex flex-wrap justify-center gap-3 lg:gap-5 mt-3 h-[270px] overflow-scroll">
-          {userIntrestData.map((butns, index) => {
-            return (
-              <div key={index} className="">
-                <button className="text-[#4D8AFF]  text-base font-normal py-[6px] px-[18px] border border-[#4D8AFF] rounded-md ">
-                  {butns.btn}
-                </button>
-              </div>
-            );
-          })}
+          {userIntrestData.map((button, index) => (
+            <div key={index} className="">
+              <button
+                onClick={() => handleButtonClick(index)}
+                className={`text-base font-normal py-[6px] px-[18px] border rounded-md flex items-center justify-center text-[#4D8AFF] border-[#4D8AFF] gap-3 ${
+                  selectedButtons[index] ? " " : ""
+                }`}
+              >
+                <span
+                  className={`inline-block ${
+                    selectedButtons[index] ? "flex" : "hidden"
+                  }`}
+                >
+                  dsc
+                </span>{" "}
+                {button.btn}
+              </button>
+            </div>
+          ))}
         </div>
         <div className="mt-10 flex justify-center">
           <PersonaliseCommonBtn onClick={handleContinueClick} />
@@ -61,4 +81,5 @@ const UserInterestPopup = ({ onClose }) => {
     </div>
   );
 };
+
 export default UserInterestPopup;

@@ -62,38 +62,37 @@ const PersonliseDropdown = ({ mapdata, index }) => {
               <DropDownIcon />
             </span>
           </div>
-          {mapdata.date && (
-            <>
-              {mapdata.date.choose.map((nestedData, nestedIndex) => (
-                <div className="relative mt-6">
-                  <label className="text-base font-medium" htmlFor="industry">
-                    {nestedData.from}
-                  </label>
-                  <div
-                    key={nestedIndex}
-                    className="relative w-full pt-1.5 py-[7px] px-[27px] border overflow-hidden border-[#BEC1C3] rounded-[100px]"
-                  >
-                    <input
-                      className="w-full text-base font-medium outline-none"
-                      type="text"
-                      name="date"
-                      placeholder={nestedData.placeholder}
-                      value={formData.date || ""}
-                      onChange={handleInputChange}
-                      onClick={() => setActiveDropdown(`date-${nestedIndex}`)}
-                    />
-                    <span
-                      onClick={() =>
-                        setActiveDropdown(
-                          activeDropdown === `date-${nestedIndex}`
-                            ? ""
-                            : `date-${nestedIndex}`
-                        )
-                      }
-                      className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer"
-                    >
-                      <DropDownIcon />
-                    </span>
+          <div className="flex">
+            {mapdata.date && (
+              <>
+                {mapdata.date.map((nestedData, nestedIndex) => (
+                  <div key={nestedIndex} className="relative mt-6">
+                    <label className="text-base font-medium" htmlFor="industry">
+                      {nestedData.from}
+                    </label>
+                    <div className="relative w-full pt-1.5 py-[7px] px-[27px] border overflow-hidden border-[#BEC1C3] rounded-[100px]">
+                      <input
+                        className="w-full text-base font-medium outline-none"
+                        type="text"
+                        name="date"
+                        placeholder={nestedData.placeholder}
+                        value={formData.date || ""}
+                        onChange={handleInputChange}
+                        onClick={() => setActiveDropdown(`date-${nestedIndex}`)}
+                      />
+                      <span
+                        onClick={() =>
+                          setActiveDropdown(
+                            activeDropdown === `date-${nestedIndex}`
+                              ? ""
+                              : `date-${nestedIndex}`
+                          )
+                        }
+                        className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer"
+                      >
+                        <DropDownIcon />
+                      </span>
+                    </div>
                     {activeDropdown === `date-${nestedIndex}` && (
                       <div className="absolute left-0 w-full bg-white rounded-[10px] shadow-lg z-10">
                         {nestedData.choose.map((option, optionIndex) => (
@@ -108,10 +107,10 @@ const PersonliseDropdown = ({ mapdata, index }) => {
                       </div>
                     )}
                   </div>
-                </div>
-              ))}
-            </>
-          )}
+                ))}
+              </>
+            )}
+          </div>
 
           {activeDropdown === index && (
             <div className="absolute left-0 w-full bg-white rounded-[10px] shadow-lg z-10">

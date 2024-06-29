@@ -114,7 +114,13 @@ export const educationaData = [
     styling: "w-full",
   },
   {
-    data: [
+    date: [
+      {
+        from: "from*",
+        placeholder: "yes",
+        choose: ["yes", "no"],
+        styling: "w-1/4",
+      },
       {
         from: "from*",
         placeholder: "yes",
