@@ -21,8 +21,8 @@ const ProfessionalDetails = ({ onClose }) => {
 
   const initialFormData = {
     dropdowns: [
-      { id: 1, month: "", year: "" },
-      { id: 2, month: "", year: "" },
+      { id: 1, monthFrom: "", yearFrom: "", monthTill: "", yearTill: "" },
+      { id: 2, monthFrom: "", yearFrom: "", monthTill: "", yearTill: "" },
     ],
   };
 
@@ -37,22 +37,6 @@ const ProfessionalDetails = ({ onClose }) => {
     }));
   };
 
-  const handleMonthChange = (e) => {
-    const { value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      month: value,
-    }));
-  };
-
-  const handleYearChange = (e) => {
-    const { value } = e.target;
-
-    setFormData((prevData) => ({
-      ...prevData,
-      year: value,
-    }));
-  };
   const totalSteps = 5;
   const handleContinueClick = () => {
     if (activeSteps < totalSteps - 1) {
@@ -338,13 +322,13 @@ const ProfessionalDetails = ({ onClose }) => {
             {formData.dropdowns.map((dropdown) => (
               <div
                 key={dropdown.id}
-                className="flex min-[400px]:w-1/2 flex-col gap-2"
+                className="flex w-full min-[400px]:w-1/2 flex-col gap-2"
               >
                 <label
                   htmlFor={`month-${dropdown.id}`}
                   className="font-normal text-black text-base capitalize"
                 >
-                  Month
+                  from
                 </label>
                 <div className="flex w-full gap-2">
                   <div className="flex w-1/2 flex-col gap-1 px-2">
