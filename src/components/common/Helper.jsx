@@ -1,4 +1,4 @@
-import logo from "../../assets/images/png/Logo.png"
+import logo from "../../assets/images/png/Logo.png";
 
 export const userIntrestData = [
   {
@@ -44,53 +44,83 @@ export const userIntrestData = [
 ];
 export const recommondedPeopledata = [
   {
-   img:logo,
-   name:"Darrell Steward",
-   title:"QA Engineer",
+    img: logo,
+    name: "Darrell Steward",
+    title: "QA Engineer",
   },
   {
-    img:logo,
-    name:"Darrell Steward",
-    title:"QA Engineer",
-   },
-   {
-    img:logo,
-    name:"Darrell Steward",
-    title:"QA Engineer",
-   },
-   {
-    img:logo,
-    name:"Darrell Steward",
-    title:"QA Engineer",
-   },
-   {
-    img:logo,
-    name:"Darrell Steward",
-    title:"QA Engineer",
-   },
-   {
-    img:logo,
-    name:"Darrell Steward",
-    title:"QA Engineer",
-   },
-   {
-    img:logo,
-    name:"Darrell Steward",
-    title:"QA Engineer",
-   },
-   {
-    img:logo,
-    name:"Darrell Steward",
-    title:"QA Engineer",
-   },
-   {
-    img:logo,
-    name:"Darrell Steward",
-    title:"QA Engineer",
-   },
-   {
-    img:logo,
-    name:"Darrell Steward",
-    title:"QA Engineer",
-   },
+    img: logo,
+    name: "Darrell Steward",
+    title: "QA Engineer",
+  },
+  {
+    img: logo,
+    name: "Darrell Steward",
+    title: "QA Engineer",
+  },
+  {
+    img: logo,
+    name: "Darrell Steward",
+    title: "QA Engineer",
+  },
+  {
+    img: logo,
+    name: "Darrell Steward",
+    title: "QA Engineer",
+  },
+  {
+    img: logo,
+    name: "Darrell Steward",
+    title: "QA Engineer",
+  },
+  {
+    img: logo,
+    name: "Darrell Steward",
+    title: "QA Engineer",
+  },
+  {
+    img: logo,
+    name: "Darrell Steward",
+    title: "QA Engineer",
+  },
+  {
+    img: logo,
+    name: "Darrell Steward",
+    title: "QA Engineer",
+  },
+  {
+    img: logo,
+    name: "Darrell Steward",
+    title: "QA Engineer",
+  },
+];
+export const educationaData = [
+  {
+    dataAbout: "Industry*",
+    placeholder: "Industry",
+    choose: ["option1", "option2", "option3"],
+    styling: "w-full",
+  },
+  {
+    dataAbout: "Company name*",
+    placeholder: "Company name",
+    choose: ["option1", "option2", "option3"],
+    styling: "w-full",
+  },
+  {
+    dataAbout: "Currently working here*",
+    placeholder: "yes",
+    choose: ["yes", "no"],
+    styling: "w-full",
+  },
+  {
+    data: [
+      {
+        from: "from*",
+        placeholder: "yes",
+        choose: ["yes", "no"],
+        styling: "w-1/4",
+      },
+    ],
+  },
 ];

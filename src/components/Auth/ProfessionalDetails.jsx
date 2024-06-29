@@ -19,10 +19,23 @@ const ProfessionalDetails = ({ onClose }) => {
   const [addDetails, setAddDetails] = useState([]);
   const [activeSteps, setActiveSteps] = useState(0);
 
-  const [formData, setFormData] = useState({
-    month: "",
-    year: "",
-  });
+  const initialFormData = {
+    dropdowns: [
+      { id: 1, month: "", year: "" },
+      { id: 2, month: "", year: "" },
+    ],
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
+
+  const handleDropdownChange = (id, field, value) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      dropdowns: prevState.dropdowns.map((item) =>
+        item.id === id ? { ...item, [field]: value } : item
+      ),
+    }));
+  };
 
   const handleMonthChange = (e) => {
     const { value } = e.target;
@@ -63,15 +76,24 @@ const ProfessionalDetails = ({ onClose }) => {
     setter(option);
     setActiveDropdown("");
   };
-  const handleClickOutside = (e) => {
-    if (formRef.current && !formRef.current.contains(e.target)) {
-      setActiveDropdown("");
-    }
+  const isFormValid = () => {
+    return (
+      industryTerm &&
+      companyTerm &&
+      workingHereTerm &&
+      designationTerm &&
+      locationTerm &&
+      formData.month &&
+      formData.year
+    );
   };
-  useEffect(() => {}, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!isFormValid()) {
+      console.log("Please fill in all required fields.");
+      return;
+    }
     const formData = {
       industry: industryTerm,
       company: companyTerm,
@@ -87,8 +109,12 @@ const ProfessionalDetails = ({ onClose }) => {
     setWorkingHereTerm("");
     setDesignationTerm("");
     setLocationTerm("");
+    setFormData({
+      month: "",
+      year: "",
+    });
   };
-  //   console.log(addDetails, "add details");
+
   const getColorClass = (value) =>
     value ? "text-black  border-black" : "text-gray";
   return (
@@ -115,11 +141,16 @@ const ProfessionalDetails = ({ onClose }) => {
               {" "}
               <button
                 type="submit"
-                className="flex items-center gap-2 py-[10px] px-6 text-base font-normal hover:bg-blue-500 hover:text-white border rounded-[100px] border-[#BEC1C3] "
+                disabled={!isFormValid()}
+                className={`flex items-center gap-2 py-[10px] px-6 text-base font-normal ${
+                  !isFormValid()
+                    ? "opacity -50 cursor-not-al lowed"
+                    : "hover:bg-blue-500 hover:text-white"
+                } border rounded-[100px] border-[#BEC1C3]`}
               >
                 <span>
                   <AddIcon />
-                </span>{" "}
+                </span>
                 Add
               </button>
             </span>
@@ -207,7 +238,6 @@ const ProfessionalDetails = ({ onClose }) => {
               </div>
             )}
           </div>
-
           {/* Company Name Input */}
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="company">
@@ -226,7 +256,7 @@ const ProfessionalDetails = ({ onClose }) => {
               <span
                 onClick={() =>
                   setActiveDropdown(
-                    activeDropdown === "industry" ? "" : "industry"
+                    activeDropdown === "company" ? "" : "company"
                   )
                 }
                 className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer"
@@ -254,7 +284,6 @@ const ProfessionalDetails = ({ onClose }) => {
               </div>
             )}
           </div>
-
           {/* Currently Working Here Input */}
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="workingHere">
@@ -273,7 +302,7 @@ const ProfessionalDetails = ({ onClose }) => {
               <span
                 onClick={() =>
                   setActiveDropdown(
-                    activeDropdown === "industry" ? "" : "industry"
+                    activeDropdown === "workingHere" ? "" : "workingHere"
                   )
                 }
                 className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer"
@@ -304,120 +333,79 @@ const ProfessionalDetails = ({ onClose }) => {
               </div>
             )}
           </div>
+
           <div className="flex flex-wrap justify-between w-full mt-6">
-            <div className="flex min-[400px]:w-1/2 flex-col gap-2">
-              <label
-                htmlFor="month"
-                className="font-normal text-black text-base capitalize"
+            {formData.dropdowns.map((dropdown) => (
+              <div
+                key={dropdown.id}
+                className="flex min-[400px]:w-1/2 flex-col gap-2"
               >
-                month
-              </label>
-              <div className="flex w-full gap-2">
-                <div className="flex w-1/2 flex-col gap-1 px-2">
-                  <div
-                    className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
-                      formData.month
-                    )}`}
-                  >
-                    <select
-                      id="month"
-                      className={`font-normal text-[13px]  sm:text-base w-full outline-none ${getColorClass(
+                <label
+                  htmlFor={`month-${dropdown.id}`}
+                  className="font-normal text-black text-base capitalize"
+                >
+                  Month
+                </label>
+                <div className="flex w-full gap-2">
+                  <div className="flex w-1/2 flex-col gap-1 px-2">
+                    <div
+                      className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
                         formData.month
                       )}`}
-                      value={formData.month}
-                      onChange={handleMonthChange}
                     >
-                      <option value="">MM</option>
-                      {[...Array(12)].map((_, i) => (
-                        <option key={i + 1} value={i + 1}>
-                          {i + 1}
-                        </option>
-                      ))}
-                    </select>
+                      <select
+                        id={`month-${dropdown.id}`}
+                        className={`font-normal text-[13px] sm:text-base w-full outline-none`}
+                        value={dropdown.month}
+                        onChange={(e) =>
+                          handleDropdownChange(
+                            dropdown.id,
+                            "month",
+                            e.target.value
+                          )
+                        }
+                      >
+                        <option value="">MM</option>
+                        {[...Array(12)].map((_, i) => (
+                          <option key={i + 1} value={i + 1}>
+                            {i + 1}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
-                </div>
-                <div className="flex w-1/2 flex-col gap-1 px-2">
-                  <div
-                    className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
-                      formData.year
-                    )}`}
-                  >
-                    <select
-                      id="year"
-                      className={`font-normal text-[13px] sm:text-base w-full outline-none ${getColorClass(
-                        formData.year
+                  <div className="flex w-1/2 flex-col gap-1 px-2">
+                    <div
+                      className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
+                        formData.month
                       )}`}
-                      value={formData.year}
-                      onChange={handleYearChange}
                     >
-                      <option value="">YYYY</option>
-                      {[...Array(100)].map((_, i) => (
-                        <option key={i + 1930} value={i + 1930}>
-                          {i + 1925}
-                        </option>
-                      ))}
-                    </select>
+                      <select
+                        id={`year-${dropdown.id}`}
+                        className={`font-normal text-[13px] sm:text-base w-full outline-none`}
+                        value={dropdown.year}
+                        onChange={(e) =>
+                          handleDropdownChange(
+                            dropdown.id,
+                            "year",
+                            e.target.value
+                          )
+                        }
+                      >
+                        <option value="">YYYY</option>
+                        {[...Array(100)].map((_, i) => (
+                          <option key={i + 1930} value={i + 1930}>
+                            {i + 1925}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="flex min-[400px]:w-1/2 flex-col gap-2">
-              <label
-                htmlFor="month"
-                className="font-normal text-black text-base capitalize"
-              >
-                Year
-              </label>
-              <div className="flex  w-full gap-2 ">
-                <div className="w-1/2 flex flex-col gap-1 px-2">
-                  <div
-                    className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
-                      formData.month
-                    )}`}
-                  >
-                    <select
-                      id="month"
-                      className={`font-normal text-[13px]  sm:text-base w-full outline-none ${getColorClass(
-                        formData.month
-                      )}`}
-                      value={formData.month}
-                      onChange={handleMonthChange}
-                    >
-                      <option value="">MM</option>
-                      {[...Array(12)].map((_, i) => (
-                        <option key={i + 1} value={i + 1}>
-                          {i + 1}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-                <div className="w-1/2 flex flex-col gap-1 px-2">
-                  <div
-                    className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
-                      formData.year
-                    )}`}
-                  >
-                    <select
-                      id="year"
-                      className={`font-normal text-[13px] sm:text-base w-full outline-none ${getColorClass(
-                        formData.year
-                      )}`}
-                      value={formData.year}
-                      onChange={handleYearChange}
-                    >
-                      <option value="">YYYY</option>
-                      {[...Array(100)].map((_, i) => (
-                        <option key={i + 1930} value={i + 1930}>
-                          {i + 1925}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
+
           {/* Designation Input */}
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="designation">
@@ -436,7 +424,7 @@ const ProfessionalDetails = ({ onClose }) => {
               <span
                 onClick={() =>
                   setActiveDropdown(
-                    activeDropdown === "industry" ? "" : "industry"
+                    activeDropdown === "designation" ? "" : "designation"
                   )
                 }
                 className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer"
@@ -467,7 +455,6 @@ const ProfessionalDetails = ({ onClose }) => {
               </div>
             )}
           </div>
-
           {/* Location Input */}
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="location">
@@ -486,7 +473,7 @@ const ProfessionalDetails = ({ onClose }) => {
               <span
                 onClick={() =>
                   setActiveDropdown(
-                    activeDropdown === "industry" ? "" : "industry"
+                    activeDropdown === "location" ? "" : "location"
                   )
                 }
                 className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer"

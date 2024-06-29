@@ -9,6 +9,8 @@ import {
 } from "../common/Icons";
 import PersonaliseCommonBtn from "./PersonaliseCommonBtn";
 import StepBar from "./StepBar";
+import PersonliseDropdown from "./PersonliseDropdown";
+import { educationaData } from "../common/Helper";
 const EducationalDetails = ({ onClose }) => {
   const [industryTerm, setIndustryTerm] = useState("");
   const [companyTerm, setCompanyTerm] = useState("");
@@ -94,24 +96,24 @@ const EducationalDetails = ({ onClose }) => {
     value ? "text-black  border-black" : "text-gray";
   return (
     <>
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 xl:h-screen xl:py-8 px-3">
-    <div className="w-full sm:w-[540px] bg-white shadow rounded-[40px] py-6 xl:py-11 px-5 md:px-10 mx-auto ">
-        <div className="flex justify-between items-center">
-          <button>
-            <BackArrowIcon />
-          </button>
-          <h2 className="font-semibold text-base text-black">Personalise</h2>
-          <button onClick={onClose}>
-            <CrossIcon />
-          </button>
-        </div>
-        <StepBar
-          className="mt-6"
-          activeSteps={activeSteps}
-          totalSteps={totalSteps}
-        />
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 xl:h-screen xl:py-8 px-3">
+        <div className="w-full sm:w-[540px] bg-white shadow rounded-[40px] py-6 xl:py-11 px-5 md:px-10 mx-auto ">
+          <div className="flex justify-between items-center">
+            <button>
+              <BackArrowIcon />
+            </button>
+            <h2 className="font-semibold text-base text-black">Personalise</h2>
+            <button onClick={onClose}>
+              <CrossIcon />
+            </button>
+          </div>
+          <StepBar
+            className="mt-6"
+            activeSteps={activeSteps}
+            totalSteps={totalSteps}
+          />
 
-        <form ref={formRef} onSubmit={handleSubmit}>
+          {/* <form ref={formRef} onSubmit={handleSubmit}> */}
           <div className="flex flex-col items-end mt-6">
             <span>
               <button
@@ -164,7 +166,16 @@ const EducationalDetails = ({ onClose }) => {
             </div>
           </div>
           {/* Industry Input */}
-          <div className="relative mt-6">
+          <div>
+            {educationaData.map((data, index) => (
+              <div key={index} className="flex">
+                <div className={` ${data.styling}`}>
+                  <PersonliseDropdown mapdata={data} index={index} />
+                </div>
+              </div>
+            ))}
+          </div>
+          {/* <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="industry">
               School / University details*
             </label>
@@ -208,9 +219,9 @@ const EducationalDetails = ({ onClose }) => {
                   ))}
               </div>
             )}
-          </div>
+          </div> */}
           {/* Company Name Input */}
-          <div className="relative mt-6">
+          {/* <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="company">
               Institute name
             </label>
@@ -254,9 +265,9 @@ const EducationalDetails = ({ onClose }) => {
                   ))}
               </div>
             )}
-          </div>
+          </div> */}
           {/* Currently Working Here Input */}
-          <div className="relative mt-6">
+          {/* <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="workingHere">
               Specialisation*
             </label>
@@ -303,9 +314,9 @@ const EducationalDetails = ({ onClose }) => {
                   ))}
               </div>
             )}
-          </div>
+          </div> */}
           {/* Designation Input */}
-          <div className="relative mt-6">
+          {/* <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="designation">
               Currently studying here*
             </label>
@@ -466,9 +477,9 @@ const EducationalDetails = ({ onClose }) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           {/* Location Input */}
-          <div className="relative mt-6">
+          {/* <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="location">
               If currently studying*
             </label>
@@ -535,12 +546,12 @@ const EducationalDetails = ({ onClose }) => {
                   ))}
               </div>
             )}
+          </div> */}
+          {/* </form> */}
+          <div className="mt-10 flex justify-center">
+            <PersonaliseCommonBtn onClick={handleContinueClick} />
           </div>
-        </form>
-        <div className="mt-10 flex justify-center">
-          <PersonaliseCommonBtn onClick={handleContinueClick} />
         </div>
-      </div>
       </div>
     </>
   );

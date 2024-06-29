@@ -4,6 +4,7 @@ import UserInterestPopup from "./UserIntrestPopup";
 import UserPersonalDetails from "./UserPersonalDetails";
 import EducationalDetails from "./EducationalDetails";
 import ProfessionalDetails from "./ProfessionalDetails";
+import PersonliseDropdown from "./PersonliseDropdown";
 
 const MainPage = () => {
   const [showPopup, setShowPopup] = useState(false);
