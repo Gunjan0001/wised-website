@@ -94,7 +94,8 @@ const EducationalDetails = ({ onClose }) => {
     value ? "text-black  border-black" : "text-gray";
   return (
     <>
-      <div className="w-full sm:w-[540px] bg-white shadow rounded-[40px] py-6 xl:py-11 px-5 md:px-10 mx-auto ">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 xl:h-screen xl:py-8 px-3">
+    <div className="w-full sm:w-[540px] bg-white shadow rounded-[40px] py-6 xl:py-11 px-5 md:px-10 mx-auto ">
         <div className="flex justify-between items-center">
           <button>
             <BackArrowIcon />
@@ -113,14 +114,13 @@ const EducationalDetails = ({ onClose }) => {
         <form ref={formRef} onSubmit={handleSubmit}>
           <div className="flex flex-col items-end mt-6">
             <span>
-              {" "}
               <button
                 type="submit"
                 className="flex items-center gap-2 py-[10px] px-6 text-base font-normal hover:bg-blue-500 hover:text-white border rounded-[100px] border-[#BEC1C3] "
               >
                 <span>
                   <AddIcon />
-                </span>{" "}
+                </span>
                 Add
               </button>
             </span>
@@ -167,7 +167,7 @@ const EducationalDetails = ({ onClose }) => {
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="industry">
               School / University details*
-            </label>{" "}
+            </label>
             <br />
             <div className="relative w-full  pt-1.5 py-[7px] px-[27px] border overflow-hidden border-[#BEC1C3] rounded-[100px]">
               <input
@@ -213,7 +213,7 @@ const EducationalDetails = ({ onClose }) => {
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="company">
               Institute name
-            </label>{" "}
+            </label>
             <br />
             <div className="relative w-full  py-[7px] px-[27px] pt-1.5 border overflow-hidden border-[#BEC1C3] rounded-[100px]">
               <input
@@ -259,7 +259,7 @@ const EducationalDetails = ({ onClose }) => {
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="workingHere">
               Specialisation*
-            </label>{" "}
+            </label>
             <br />
             <div className="relative w-full py-[7px] pt-1.5 px-[27px] overflow-hidden border border-[#BEC1C3] rounded-[100px]">
               <input
@@ -303,12 +303,12 @@ const EducationalDetails = ({ onClose }) => {
                   ))}
               </div>
             )}
-          </div>{" "}
+          </div>
           {/* Designation Input */}
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="designation">
               Currently studying here*
-            </label>{" "}
+            </label>
             <br />
             <div className="relative w-full py-[7px] pt-1.5 px-[27px] overflow-hidden border border-[#BEC1C3] rounded-[100px]">
               <input
@@ -356,7 +356,7 @@ const EducationalDetails = ({ onClose }) => {
           <div className="flex flex-wrap justify-between w-full mt-6">
             <div className="flex min-[400px]:w-1/2 flex-col gap-2">
               <label
-                htmlFor="month"
+                htmlFor="months"
                 className="font-normal text-black text-base capitalize"
               >
                 month
@@ -367,9 +367,9 @@ const EducationalDetails = ({ onClose }) => {
                     className={`flex justify-between border border-gray py-2 px-2 md:px-3 rounded-3xl ${getColorClass(
                       formData.month
                     )}`}
-                  >
+                  >n
                     <select
-                      id="month"
+                      id="months"
                       className={`font-normal text-[13px]  sm:text-base w-full outline-none ${getColorClass(
                         formData.month
                       )}`}
@@ -392,7 +392,7 @@ const EducationalDetails = ({ onClose }) => {
                     )}`}
                   >
                     <select
-                      id="year"
+                      id="years"
                       className={`font-normal text-[13px] sm:text-base w-full outline-none ${getColorClass(
                         formData.year
                       )}`}
@@ -471,10 +471,10 @@ const EducationalDetails = ({ onClose }) => {
           <div className="relative mt-6">
             <label className="text-base font-medium" htmlFor="location">
               If currently studying*
-            </label>{" "}
+            </label>
             <br />
             <div className="flex gap-3">
-              {" "}
+              
               <div className="relative w-full pt-1.5 py-[7px] px-[27px] border  border-[#BEC1C3] rounded-[100px]">
                 <input
                   className="w-full text-base font-medium outline-none"
@@ -540,6 +540,7 @@ const EducationalDetails = ({ onClose }) => {
         <div className="mt-10 flex justify-center">
           <PersonaliseCommonBtn onClick={handleContinueClick} />
         </div>
+      </div>
       </div>
     </>
   );

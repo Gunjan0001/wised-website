@@ -152,7 +152,6 @@ const ProfessionalDetails = ({ onClose }) => {
                       <div className="flex w-full h-full justify-end items-center">
                         <span className="flex gap-4 sm:gap-7">
                           <EditIcon />
-
                           <DeleteIcon />
                         </span>
                       </div>
